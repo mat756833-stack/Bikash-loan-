@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SutonnyMJ', 'Roboto', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             background: #f5f5f5;
         }
 
@@ -113,7 +113,6 @@
             padding: 0 20px;
         }
 
-        /* স্ট্যাটস গ্রিড - ছোট করে */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -140,7 +139,6 @@
             opacity: 0.9;
         }
 
-        /* লোন স্ট্যাটাস বক্স (Side by side) */
         .loans-main-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -257,9 +255,6 @@
             color: #d32f2f;
             font-size: 22px;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .loan-grid {
@@ -301,7 +296,6 @@
             margin-top: 5px;
         }
 
-        /* মোডাল স্টাইল */
         .modal {
             display: none;
             position: fixed;
@@ -352,6 +346,7 @@
 
         .modal-header h2 {
             font-size: 22px;
+            margin: 0;
         }
 
         .modal-body {
@@ -396,10 +391,15 @@
             justify-content: space-between;
             padding: 8px 0;
             border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
         }
 
         .detail-row:last-child {
             border-bottom: none;
+        }
+
+        .detail-row strong {
+            font-weight: 600;
         }
 
         .payment-box {
@@ -408,6 +408,12 @@
             padding: 20px;
             text-align: center;
             margin: 15px 0;
+            border: 2px solid #a5d6a7;
+        }
+
+        .payment-box.warning {
+            background: #fff3e0;
+            border-color: #ffb74d;
         }
 
         .bikash-number {
@@ -416,6 +422,7 @@
             color: #d32f2f;
             letter-spacing: 1px;
             margin: 10px 0;
+            font-family: 'Courier New', monospace;
         }
 
         .action-buttons {
@@ -426,7 +433,7 @@
             flex-wrap: wrap;
         }
 
-        .copy-btn {
+        .copy-btn, .send-money-btn {
             background: #d32f2f;
             color: white;
             border: none;
@@ -434,16 +441,21 @@
             border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
+            transition: 0.3s;
         }
 
         .send-money-btn {
             background: #2196f3;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
+        }
+
+        .copy-btn:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        .send-money-btn:hover {
+            background: #1976d2;
+            transform: translateY(-2px);
         }
 
         .timer {
@@ -451,6 +463,7 @@
             font-weight: bold;
             color: #ff9800;
             margin: 10px 0;
+            font-family: 'Courier New', monospace;
         }
 
         .btn {
@@ -471,11 +484,17 @@
 
         .btn-primary:hover {
             background: #b71c1c;
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
             background: #e0e0e0;
             color: #333;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
         }
 
         .modal-footer {
@@ -485,9 +504,9 @@
             border-top: 1px solid #e0e0e0;
         }
 
-        /* চেকিং অ্যানিমেশন */
         .checking-modal {
             text-align: center;
+            padding: 20px 0;
         }
 
         .spinner {
@@ -507,12 +526,65 @@
 
         .pulse-text {
             animation: pulse 1s ease infinite;
+            font-weight: 700;
+            font-size: 18px;
         }
 
         @keyframes pulse {
-            0% { opacity: 0.5; }
+            0%, 100% { opacity: 0.6; }
             50% { opacity: 1; }
-            100% { opacity: 0.5; }
+        }
+
+        /* Success Modal Styles */
+        .success-icon {
+            font-size: 60px;
+            margin: 20px 0;
+            animation: successBounce 0.6s ease;
+        }
+
+        @keyframes successBounce {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .success-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1b5e20;
+            margin: 15px 0;
+        }
+
+        .success-message {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        .success-details {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .success-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .success-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .success-detail-row strong {
+            font-weight: 600;
         }
 
         .toast-popup {
@@ -520,14 +592,20 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #4caf50;
-            color: white;
+            background: white;
+            color: #333;
             padding: 15px 30px;
             border-radius: 50px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             z-index: 2000;
             animation: fadeOut 2s ease forwards;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            border-left: 4px solid #4caf50;
+        }
+
+        .toast-popup.error {
+            border-left-color: #f44336;
         }
 
         @keyframes fadeOut {
@@ -557,14 +635,20 @@
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+            .modal-footer {
+                flex-direction: column;
+            }
+            .btn-secondary {
+                flex: none;
+            }
         }
 
-        /* টেলিগ্রাম সাপোর্ট স্টাইল */
+        /* Support Button Styles */
         .support-wrapper {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            z-index: 1000;
+            z-index: 999;
         }
 
         .support-button {
@@ -578,20 +662,14 @@
             cursor: pointer;
             box-shadow: 0 5px 20px rgba(0,0,0,0.25);
             transition: all 0.3s ease;
-            position: relative;
             animation: pulse-btn 2s infinite;
+            border: none;
         }
 
         @keyframes pulse-btn {
-            0% {
-                box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 18px rgba(0, 136, 204, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(0, 136, 204, 0);
-            }
+            0% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.7); }
+            70% { box-shadow: 0 0 0 18px rgba(0, 136, 204, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0); }
         }
 
         .support-button:hover {
@@ -601,43 +679,8 @@
 
         .support-emoji {
             font-size: 36px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
-        .support-text {
-            position: absolute;
-            right: 90px;
-            background: #1a1a1a;
-            color: white;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-size: 14px;
-            font-weight: 600;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-        }
-
-        .support-text::after {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 50%;
-            transform: translateY(-50%);
-            border-width: 8px 0 8px 8px;
-            border-style: solid;
-            border-color: transparent transparent transparent #1a1a1a;
-        }
-
-        .support-button:hover .support-text {
-            opacity: 1;
-            visibility: visible;
-            right: 95px;
-        }
-
-        /* পপআপ স্টাইল */
         .support-popup {
             position: absolute;
             bottom: 95px;
@@ -668,10 +711,6 @@
             gap: 12px;
         }
 
-        .header-emoji {
-            font-size: 26px;
-        }
-
         .support-popup-header h3 {
             font-size: 18px;
             margin: 0;
@@ -695,7 +734,6 @@
 
         .support-close:hover {
             background: rgba(255,255,255,0.4);
-            transform: rotate(90deg);
         }
 
         .support-popup-body {
@@ -756,21 +794,12 @@
             box-shadow: 0 8px 20px rgba(0, 136, 204, 0.4);
         }
 
-        .btn-emoji {
-            font-size: 18px;
-        }
-
         .support-note {
             font-size: 11px;
             color: #999;
             margin: 8px 0;
         }
 
-        .support-note:first-of-type {
-            margin-top: 0;
-        }
-
-        /* রেস্পন্সিভ */
         @media (max-width: 576px) {
             .support-wrapper {
                 bottom: 20px;
@@ -791,16 +820,6 @@
                 font-size: 28px;
             }
             
-            .support-text {
-                font-size: 12px;
-                padding: 6px 14px;
-                right: 75px;
-            }
-            
-            .support-button:hover .support-text {
-                right: 80px;
-            }
-            
             .support-popup-body {
                 padding: 20px;
             }
@@ -811,7 +830,6 @@
             }
         }
     </style>
-  
 </head>
 <body>
     <div class="header">
@@ -836,25 +854,22 @@
     </div>
 
     <div class="main-content">
-        <!-- স্ট্যাটস গ্রিড (মোট লোন, একটিভ লোন, মোট পেমেন্ট) -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-number" id="totalLoan">०</div>
+                <div class="stat-number" id="totalLoan">0</div>
                 <div class="stat-label">মোট লোন</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="activeLoan">०</div>
-                <div class="stat-label">একটিভ লোন</div>
+                <div class="stat-number" id="activeLoan">0</div>
+                <div class="stat-label">একট��ভ লোন</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="totalPaid">०</div>
+                <div class="stat-number" id="totalPaid">0</div>
                 <div class="stat-label">মোট পেমেন্ট</div>
             </div>
         </div>
 
-        <!-- লোন স্ট্যাটাস বক্স (Pending + Approved) - Side by Side -->
         <div class="loans-main-container">
-            <!-- Pending লোন বক্স -->
             <div class="loan-status-box">
                 <div class="loan-status-header">
                     <span class="status-badge status-pending">⏳ বিচারাধীন</span>
@@ -865,11 +880,10 @@
                 </div>
             </div>
 
-            <!-- Approved লোন বক্স -->
             <div class="loan-status-box">
                 <div class="loan-status-header">
                     <span class="status-badge status-approved">✅ অনুমোদিত</span>
-                    <span style="font-size: 14px; color: #666;">অ্যাপ্রুভ��� লোন</span>
+                    <span style="font-size: 14px; color: #666;">অনুমোদিত লোন</span>
                 </div>
                 <div id="approvedLoansList">
                     <div class="empty-state">লোড হচ্ছে...</div>
@@ -877,29 +891,28 @@
             </div>
         </div>
 
-        <!-- লোন সিলেক্ট সেকশন -->
         <div class="section-card">
             <div class="section-title">💰 লোনের পরিমাণ নির্বাচন করুন</div>
             <div class="loan-grid">
                 <div class="loan-card" data-amount="25000" data-duration="6" data-interest="5" data-fee="750">
-                    <div class="loan-amount">२५,०००</div>
-                    <div class="loan-fee">প্রসেসিং ফি: ७५० টাকা</div>
-                    <div class="loan-duration">६ মাস | ५% সুদ</div>
+                    <div class="loan-amount">২৫,০০০ টাকা</div>
+                    <div class="loan-fee">প্রসেসিং ফি: ৭৫০ টাকা</div>
+                    <div class="loan-duration">৬ মাস | ৫% সুদ</div>
                 </div>
                 <div class="loan-card" data-amount="40000" data-duration="10" data-interest="7" data-fee="1200">
-                    <div class="loan-amount">४०,०००</div>
-                    <div class="loan-fee">প্রসেসিং ফি: १,२०० টাকা</div>
-                    <div class="loan-duration">१० মাস | ७% সুদ</div>
+                    <div class="loan-amount">৪০,০০০ টাকা</div>
+                    <div class="loan-fee">প্রসেসিং ফি: ১,২০০ টাকা</div>
+                    <div class="loan-duration">১০ মাস | ৭% সুদ</div>
                 </div>
                 <div class="loan-card" data-amount="50000" data-duration="12" data-interest="8" data-fee="1500">
-                    <div class="loan-amount">५०,०००</div>
-                    <div class="loan-fee">প্রসেসিং ফি: १,५०० টাকা</div>
-                    <div class="loan-duration">१२ মাস | ८% সুদ</div>
+                    <div class="loan-amount">৫০,০০০ টাকা</div>
+                    <div class="loan-fee">প্রসেসিং ফি: ১,৫০০ টাকা</div>
+                    <div class="loan-duration">১২ মাস | ৮% সুদ</div>
                 </div>
                 <div class="loan-card" data-amount="100000" data-duration="24" data-interest="10" data-fee="3000">
-                    <div class="loan-amount">१,००,०००</div>
-                    <div class="loan-fee">প্রসেসিং ফি: ३,००० টাকা</div>
-                    <div class="loan-duration">२४ मাস | १०% সুদ</div>
+                    <div class="loan-amount">১,০০,০০০ টাকা</div>
+                    <div class="loan-fee">প্রসেসিং ফি: ৩,০০০ টাকা</div>
+                    <div class="loan-duration">২৪ মাস | ১০% সুদ</div>
                 </div>
             </div>
         </div>
@@ -910,7 +923,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>📋 লোন আবেদন ফর্ম</h2>
-                <p style="font-size: 13px;">নিচের তথ্য পূরণ করুন</p>
+                <p style="font-size: 13px; margin-top: 8px; opacity: 0.9;">নিচের তথ্য পূরণ করুন</p>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -950,118 +963,145 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="window.closeLoanFormModal()">বাতিল</button>
+                <button class="btn btn-secondary" onclick="closeLoanFormModal()">বাতিল</button>
                 <button class="btn btn-primary" id="submitLoanBtn">✅ লোন আবেদন করুন</button>
             </div>
         </div>
     </div>
 
-    <!-- মোডাল ২: পেমেন্ট পপআপ -->
+    <!-- মোডাল ২: পেমেন্ট মোডাল -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>💳 লোন প্রসেসিং ফি</h2>
+                <h2>💳 লোন প্রসেসিং ফি পেমেন্ট</h2>
             </div>
             <div class="modal-body">
                 <div class="payment-box">
                     <strong>📢 আপনার লোনের তথ্য</strong>
-                    <div id="paymentLoanInfo" style="font-size: 18px; font-weight: bold; margin: 10px 0;"></div>
-                    <div>প্রসেসিং ফি: <strong id="processingFeeAmount">०</strong> টাকা</div>
+                    <div id="paymentLoanInfo" style="font-size: 18px; font-weight: bold; margin: 10px 0; color: #1b5e20;"></div>
+                    <div>প্রসেসিং ফি: <strong id="processingFeeAmount">০</strong> টাকা</div>
                 </div>
 
-                <div class="payment-box" style="background: #fff3e0;">
-                    <strong>📱 বিকাশ সঞ্চয় নম্বর</strong>
+                <div class="payment-box warning">
+                    <strong>📱 বিকাশ সঞ্চয় নম্বরে পাঠান</strong>
                     <div class="bikash-number">01918964459</div>
                     <div class="action-buttons">
                         <button class="copy-btn" id="copyNumberBtn">📋 কপি করুন</button>
-                        <button class="send-money-btn" id="sendMoneyBtn">💸 সেন্ড মানি করুন</button>
+                        <button class="send-money-btn" id="sendMoneyBtn">💸 সেন্ড মানি</button>
                     </div>
-                    <small>উপরের নম্বরে প্রসেসিং ফি জমা দিন</small>
+                    <small style="color: #e65100; font-weight: 500;">উপরের নম্বরে প্রসেসিং ফি জমা দিন</small>
                 </div>
 
-                <div style="text-align: center; margin: 15px 0;">
-                    <strong>⏰ পেমেন্টের সময় বাকি</strong>
-                    <div class="timer" id="timer">600</div>
+                <div style="text-align: center; margin: 15px 0; background: #f5f5f5; padding: 15px; border-radius: 10px;">
+                    <strong style="color: #666;">⏰ পেমেন্টের সময় বাকি</strong>
+                    <div class="timer" id="timer">10:00</div>
                 </div>
 
                 <div class="form-group">
-                    <label>📝 ট্রানজেকশন আইডি</label>
-                    <input type="text" id="transactionId" placeholder="বিকাশ থেকে প্রাপ্ত १० ডিজিটের আইডি দিন">
+                    <label>📝 ট্রানজেকশন আইডি (সঠিক তথ্য দিন)</label>
+                    <input type="text" id="transactionId" placeholder="বিকাশ থেকে পাওয়া ১০ সংখ্যার আইডি দিন" maxlength="10">
                 </div>
 
                 <div id="paymentMessage" style="font-size: 13px; color: #666; text-align: center;"></div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="window.closePaymentModal()">বাতিল</button>
+                <button class="btn btn-secondary" onclick="closePaymentModal()">বাতিল</button>
                 <button class="btn btn-primary" id="verifyBtn">✅ ভেরিফাই করুন</button>
             </div>
         </div>
     </div>
 
-    <!-- মোডাল ३: চেকিং পপআপ (অ্যানিমেশন) -->
+    <!-- মোডাল ৩: চেকিং মোডাল -->
     <div id="checkingModal" class="modal">
         <div class="modal-content" style="max-width: 400px;">
             <div class="modal-header">
-                <h2>⏳ ট্রানজেকশন চেকিং</h2>
+                <h2>⏳ ট্রানজেকশন যাচাই করছি</h2>
             </div>
             <div class="modal-body checking-modal">
                 <div class="spinner"></div>
-                <h3 class="pulse-text" style="color: #d32f2f;">আপনার দেওয়া ফি চেক করা হচ্ছে...</h3>
-                <p style="margin-top: 15px; color: #666;">দয়া করে অপেক্ষা করুন</p>
-                <div id="checkingTimer" style="font-size: 28px; font-weight: bold; margin-top: 15px; color: #ff9800;">40</div>
-                <p style="font-size: 12px; color: #999; margin-top: 10px;">আমাদের এজেন্ট কিছুক্ষণের মধ্যে আপনার সাথে যোগাযোগ করে আপনার লোন আপনার কাছে পাঠিয়ে দিবে</p>
+                <p class="pulse-text" style="color: #d32f2f; margin-top: 15px;">আপনার পেমেন্ট যাচাই হচ্ছে...</p>
+                <p style="margin-top: 15px; color: #666;">অনুগ্রহ করে অপেক্ষা করুন</p>
+                <div style="font-size: 28px; font-weight: bold; margin-top: 15px; color: #ff9800;" id="checkingTimer">40</div>
+                <p style="font-size: 12px; color: #999; margin-top: 10px; line-height: 1.5;">আমাদের এজেন্ট কয়েক সেকেন্ডের মধ্যে আপনার সাথে যোগাযোগ করবেন এবং আপনার বিকাশ অ্যাকাউন্টে লোন পাঠাবেন</p>
             </div>
         </div>
     </div>
 
-    <!-- মোডাল ४: সাকসেস পপআপ -->
+    <!-- মোডাল ৪: সাকসেস মোডাল -->
     <div id="successModal" class="modal">
-        <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-content" style="max-width: 450px;">
             <div class="modal-header">
-                <h2>🎉 লোন অনুমোদিত!</h2>
+                <h2>🎉 অভিনন্দন!</h2>
             </div>
             <div class="modal-body" style="text-align: center;">
-                <div style="font-size: 60px;">🎉</div>
-                <h3 style="color: #d32f2f; margin: 10px 0;">অভিনন্দন!</h3>
-                <div id="successDetails" style="margin: 15px 0; text-align: left;"></div>
-                <p style="background: #e8f5e9; padding: 12px; border-radius: 12px; margin-top: 10px;">
-                    ✅ কিছুক্ষণের ভিতরেই আমাদের এজেন্ট আপনার বিকাশ একাউন্টে<br>
-                    লোনের টাকা পাঠিয়ে দিবে<br><br>
-                    ধন্যবাদ!
+                <div class="success-icon">✅</div>
+                <h3 class="success-title">আপনার লোন অনুমোদিত হয়েছে!</h3>
+                <p class="success-message">
+                    আপনার লোন আবেদন সফলভাবে প্রক্রিয়া সম্পন্ন হয়েছে।
                 </p>
-                <button class="btn btn-primary" id="closeSuccessBtn" style="margin-top: 15px;">ঠিক আছে</button>
+                
+                <div class="success-details">
+                    <div class="success-detail-row">
+                        <strong>লোনের পরিমাণ:</strong>
+                        <span id="successAmount">০</span>
+                    </div>
+                    <div class="success-detail-row">
+                        <strong>লোনের মেয়াদ:</strong>
+                        <span id="successDuration">০</span>
+                    </div>
+                    <div class="success-detail-row">
+                        <strong>সুদের হার:</strong>
+                        <span id="successInterest">০%</span>
+                    </div>
+                    <div class="success-detail-row">
+                        <strong>মাসিক কিস্তি:</strong>
+                        <span id="successEMI">০</span>
+                    </div>
+                    <div class="success-detail-row">
+                        <strong style="color: #1b5e20;">ট্রানজেকশন ID:</strong>
+                        <span id="successTransactionId" style="color: #1b5e20; font-family: monospace;">০</span>
+                    </div>
+                </div>
+
+                <p style="background: #e8f5e9; padding: 15px; border-radius: 10px; margin: 20px 0; font-size: 13px; line-height: 1.6; color: #1b5e20;">
+                    ✅ কয়েক মিনিটের মধ্যে অর্থ আপনার বিকাশ অ্যাকাউন্টে জমা হবে<br><br>
+                    আমাদের এজেন্ট শীঘ্রই আপনার সাথে যোগাযোগ করবেন<br><br>
+                    ধন্যবাদ বিকাশ লোন ব্যবহার করার জন্য!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="closeSuccessBtn" style="width: 100%; margin: 0;">✅ ঠিক আছে</button>
             </div>
         </div>
     </div>
 
-    <!-- টেলিগ্রাম সাপোর্ট ফ্লোটিং বাটন ও পপআপ -->
-    <div class="support-wrapper" id="supportWrapper">
-        <div class="support-button" id="supportBtn">
+    <!-- সাপোর্ট বাটন -->
+    <div class="support-wrapper">
+        <button class="support-button" id="supportBtn">
             <span class="support-emoji">💬</span>
-            <span class="support-text">💬 টেলিগ্রাম সাপোর্ট</span>
-        </div>
+        </button>
         
         <div class="support-popup" id="supportPopup">
             <div class="support-popup-header">
-                <span class="header-emoji">💬</span>
-                <h3>💬 টেলিগ্রাম সাপোর্ট</h3>
+                <span class="icon-emoji">💬</span>
+                <h3>সাহায্য প্রয়োজন?</h3>
                 <button class="support-close" id="closeSupportBtn">&times;</button>
             </div>
             <div class="support-popup-body">
                 <div class="support-icon">
                     <span class="icon-emoji">💬</span>
                 </div>
-                <p class="support-title">🔰 সাহায্য প্রয়োজন?</p>
-                <p class="support-desc">আমাদের টেলিগ্রাম সাপোর্ট টিম २४/७ আপনার জন্য প্রস্তুত। যেকোনো সমস্যায় সরাসরি কথা বলুন।</p>
+                <p class="support-title">টেলিগ্রাম সাপোর্ট</p>
+                <p class="support-desc">আমাদের টেলিগ্রাম সাপোর্ট টিম ২৪/৭ আপনার সেবায় প্রস্তুত। যেকোনো সমস্যায় সরাসরি যোগাযোগ করুন।</p>
                 
-                <a href="https://t.me/just2k" class="telegram-btn" target="_blank">
-                    <span class="btn-emoji">💬</span>
+                <a href="https://t.me/just2k" class="telegram-btn" target="_blank" rel="noopener noreferrer">
+                    <span>💬</span>
                     টেলিগ্রামে চ্যাট করুন
                 </a>
                 
-                <p class="support-note">⚡ ক্লিক করলেই সরাসরি টেলিগ্রাম চ্যাট ওপেন হবে</p>
-                <p class="support-note">⏰ সাধারণত ५-१० মিনিটের মধ্যে রিপ্লাই পাবেন</p>
-                <p class="support-note">🔒 আপনার ব্যক্তিগত নম্বর হাইড থাকবে</p>
+                <p class="support-note">⚡ ক্লিক করলেই টেলিগ্রাম চ্যাট খুলবে</p>
+                <p class="support-note">⏰ সাধারণত ৫-১০ মিনিটে রিপ্লাই পাবেন</p>
+                <p class="support-note">🔒 আপনার ব্যক্তিগত তথ্য সম্পূর্ণ সুরক্ষিত</p>
             </div>
         </div>
     </div>
@@ -1077,12 +1117,12 @@
         let timerInterval = null;
         let checkingInterval = null;
 
-        function showToast(message) {
+        function showToast(message, isError = false) {
             const toast = document.createElement('div');
-            toast.className = 'toast-popup';
+            toast.className = isError ? 'toast-popup error' : 'toast-popup';
             toast.textContent = message;
             document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 2000);
+            setTimeout(() => toast.remove(), 2500);
         }
 
         onAuthStateChanged(auth, async (user) => {
@@ -1096,21 +1136,24 @@
         });
 
         async function loadUserData() {
-            const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
-            if (userDoc.exists()) {
-                userData = userDoc.data();
-                document.getElementById('userName').textContent = userData.name || 'ব্যবহারকারী';
-                document.getElementById('userNumber').textContent = userData.bikashNumber || '';
+            try {
+                const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+                if (userDoc.exists()) {
+                    userData = userDoc.data();
+                    document.getElementById('userName').textContent = userData.name || 'ব্যবহারকারী';
+                    document.getElementById('userNumber').textContent = userData.bikashNumber || '';
+                }
+            } catch (error) {
+                console.error("Error loading user:", error);
             }
         }
 
-        // স্ট্যাটাস অনুযায়ী লোন লোড করার ফাংশন
         async function loadLoansAndStats() {
             try {
                 const q = query(collection(db, 'loans'), where('userId', '==', currentUser.uid));
                 const querySnapshot = await getDocs(q);
                 
-                let totalLoan = 0;
+                let totalAmount = 0;
                 let pendingLoans = [];
                 let approvedLoans = [];
                 
@@ -1120,7 +1163,7 @@
                     
                     if (data.status === 'approved') {
                         approvedLoans.push(loanWithId);
-                        totalLoan += data.amount || 0;
+                        totalAmount += parseInt(data.amount) || 0;
                     } else if (data.status === 'pending_payment') {
                         pendingLoans.push(loanWithId);
                     }
@@ -1134,12 +1177,12 @@
                     pendingContainer.innerHTML = pendingLoans.map(loan => `
                         <div class="loan-item loan-item-pending">
                             <div class="loan-item-header">
-                                <span class="loan-amount-text">💰 ${(loan.amount || 0).toLocaleString()} টাকা</span>
+                                <span class="loan-amount-text">💰 ${(parseInt(loan.amount) || 0).toLocaleString('bn-BD')} টাকা</span>
                                 <span class="loan-status-tag tag-pending">⏳ পেন্ডিং</span>
                             </div>
                             <div class="loan-details-text">
-                                <span>📅 ${loan.timestamp?.toDate().toLocaleDateString('bn-BD') || 'তারিখ নেই'}</span>
-                                <span>💳 ফি: ${(loan.processingFee || 0).toLocaleString()} টাকা</span>
+                                <span>📅 ${loan.timestamp?.toDate?.().toLocaleDateString('bn-BD') || 'তারিখ নেই'}</span>
+                                <span>💳 ফি: ${(parseInt(loan.processingFee) || 0).toLocaleString('bn-BD')} টাকা</span>
                             </div>
                         </div>
                     `).join('');
@@ -1153,33 +1196,31 @@
                     approvedContainer.innerHTML = approvedLoans.map(loan => `
                         <div class="loan-item loan-item-approved">
                             <div class="loan-item-header">
-                                <span class="loan-amount-text">💰 ${(loan.amount || 0).toLocaleString()} টাকা</span>
+                                <span class="loan-amount-text">💰 ${(parseInt(loan.amount) || 0).toLocaleString('bn-BD')} টাকা</span>
                                 <span class="loan-status-tag tag-approved">✅ অনুমোদিত</span>
                             </div>
                             <div class="loan-details-text">
-                                <span>📅 ${loan.approvedAt?.toDate().toLocaleDateString('bn-BD') || loan.timestamp?.toDate().toLocaleDateString('bn-BD') || 'তারিখ নেই'}</span>
-                                <span>📆 কিস্তি: ${(loan.emi || 0).toLocaleString()} টাকা/মাস</span>
+                                <span>📅 ${loan.approvedAt?.toDate?.().toLocaleDateString('bn-BD') || loan.timestamp?.toDate?.().toLocaleDateString('bn-BD') || 'তারিখ নেই'}</span>
+                                <span>📆 কিস্তি: ${(parseInt(loan.emi) || 0).toLocaleString('bn-BD')} টাকা/মাস</span>
                             </div>
                         </div>
                     `).join('');
                 }
                 
                 // স্ট্যাট আপডেট
-                document.getElementById('totalLoan').textContent = totalLoan.toLocaleString();
-                document.getElementById('activeLoan').textContent = totalLoan.toLocaleString();
+                document.getElementById('totalLoan').textContent = totalAmount.toLocaleString('bn-BD');
+                document.getElementById('activeLoan').textContent = totalAmount.toLocaleString('bn-BD');
                 
             } catch (error) {
                 console.error("Error loading loans:", error);
-                document.getElementById('pendingLoansList').innerHTML = '<div class="empty-state">⚠️ লোন লোড করতে সমস্যা হয়েছে</div>';
-                document.getElementById('approvedLoansList').innerHTML = '<div class="empty-state">⚠️ লোন লোড করতে সমস্যা হয়েছে</div>';
             }
         }
 
         function calculateLoanDetails(amount, duration, interestRate) {
-            const interest = (amount * interestRate) / 100;
-            const totalPayable = amount + interest;
-            const emi = Math.ceil(totalPayable / duration);
-            return { interest, totalPayable, emi };
+            const totalInterest = (amount * interestRate) / 100;
+            const totalPayable = amount + totalInterest;
+            const emi = Math.round(totalPayable / duration);
+            return { totalInterest, totalPayable, emi };
         }
 
         // লোন কার্ড ক্লিক
@@ -1206,21 +1247,26 @@
                 document.getElementById('address').value = userData?.address || '';
                 
                 const detailsHTML = `
-                    <div class="detail-row"><strong>লোনের পরিমাণ:</strong> <span>${amount.toLocaleString()} টাকা</span></div>
+                    <div class="detail-row"><strong>লোনের পরিমাণ:</strong> <span>${amount.toLocaleString('bn-BD')} টাকা</span></div>
                     <div class="detail-row"><strong>লোনের মেয়াদ:</strong> <span>${duration} মাস</span></div>
                     <div class="detail-row"><strong>সুদের হার:</strong> <span>${interest}%</span></div>
-                    <div class="detail-row"><strong>মোট সুদ:</strong> <span>${details.interest.toLocaleString()} টাকা</span></div>
-                    <div class="detail-row"><strong>মোট পরিশোধ্য:</strong> <span>${details.totalPayable.toLocaleString()} টাকা</span></div>
-                    <div class="detail-row"><strong>মাসিক কিস্তি (EMI):</strong> <span>${details.emi.toLocaleString()} টাকা</span></div>
-                    <div class="detail-row"><strong style="color:#d32f2f;">প্রসেসিং ফি:</strong> <span style="color:#d32f2f; font-weight:bold;">${fee.toLocaleString()} টাকা (३%)</span></div>
+                    <div class="detail-row"><strong>মোট সুদ:</strong> <span>${Math.round(details.totalInterest).toLocaleString('bn-BD')} টাকা</span></div>
+                    <div class="detail-row"><strong>মোট পরিশোধ্য:</strong> <span>${details.totalPayable.toLocaleString('bn-BD')} টাকা</span></div>
+                    <div class="detail-row"><strong>মাসিক কিস্তি:</strong> <span>${details.emi.toLocaleString('bn-BD')} টাকা</span></div>
+                    <div class="detail-row" style="border-bottom: 2px solid #d32f2f !important; margin-top: 10px; padding-top: 10px;"><strong style="color:#d32f2f;">প্রসেসিং ফি:</strong> <span style="color:#d32f2f; font-weight:bold;">${fee.toLocaleString('bn-BD')} টাকা</span></div>
                 `;
                 document.getElementById('loanDetails').innerHTML = detailsHTML;
                 document.getElementById('loanFormModal').classList.add('show');
             });
         });
 
-        window.closeLoanFormModal = () => {
+        window.closeLoanFormModal = function() {
             document.getElementById('loanFormModal').classList.remove('show');
+        };
+
+        window.closePaymentModal = function() {
+            document.getElementById('paymentModal').classList.remove('show');
+            if (timerInterval) clearInterval(timerInterval);
         };
 
         // লোন সাবমিট
@@ -1228,57 +1274,69 @@
             const name = document.getElementById('fullName').value.trim();
             const bikash = document.getElementById('bikashNumber').value.trim();
             const nid = document.getElementById('nidNumber').value.trim();
-            const address = document.getElementById('address').value;
+            const address = document.getElementById('address').value.trim();
             const occupation = document.getElementById('occupation').value;
             const income = document.getElementById('monthlyIncome').value;
 
-            if (!name || !bikash || !nid || !occupation) {
-                showToast('দয়া করে সব তথ্য পূরণ করুন');
+            if (!name || !bikash || !nid || !address || !occupation || !income) {
+                showToast('সব তথ্য পূরণ করুন', true);
                 return;
             }
 
             if (!bikash.match(/^01[3-9]\d{8}$/)) {
-                showToast('সঠিক বিকাশ নম্বর দিন');
+                showToast('সঠিক বিকাশ নম্বর দিন (01XXXXXXXXX)', true);
                 return;
             }
 
-            await addDoc(collection(db, 'loans'), {
-                userId: currentUser.uid,
-                name: name,
-                amount: selectedLoan.amount,
-                duration: selectedLoan.duration,
-                interestRate: selectedLoan.interest,
-                processingFee: selectedLoan.fee,
-                totalPayable: selectedLoan.totalPayable,
-                emi: selectedLoan.emi,
-                bikashNumber: bikash,
-                nidNumber: nid,
-                address: address,
-                occupation: occupation,
-                monthlyIncome: parseInt(income) || 0,
-                status: 'pending_payment',
-                timestamp: serverTimestamp()
-            });
+            if (nid.length < 10 || nid.length > 17) {
+                showToast('সঠিক এনআইডি নম্বর দিন', true);
+                return;
+            }
 
-            window.closeLoanFormModal();
-            
-            document.getElementById('paymentLoanInfo').innerHTML = `${selectedLoan.amount.toLocaleString()} টाका`;
-            document.getElementById('processingFeeAmount').innerHTML = selectedLoan.fee.toLocaleString();
-            document.getElementById('paymentModal').classList.add('show');
-            
-            startTimer(600);
+            try {
+                await addDoc(collection(db, 'loans'), {
+                    userId: currentUser.uid,
+                    name: name,
+                    amount: selectedLoan.amount,
+                    duration: selectedLoan.duration,
+                    interestRate: selectedLoan.interest,
+                    processingFee: selectedLoan.fee,
+                    totalPayable: selectedLoan.totalPayable,
+                    emi: selectedLoan.emi,
+                    bikashNumber: bikash,
+                    nidNumber: nid,
+                    address: address,
+                    occupation: occupation,
+                    monthlyIncome: parseInt(income) || 0,
+                    status: 'pending_payment',
+                    timestamp: serverTimestamp()
+                });
+
+                window.closeLoanFormModal();
+                
+                document.getElementById('paymentLoanInfo').innerHTML = `${selectedLoan.amount.toLocaleString('bn-BD')} টাকা`;
+                document.getElementById('processingFeeAmount').innerHTML = selectedLoan.fee.toLocaleString('bn-BD');
+                document.getElementById('paymentModal').classList.add('show');
+                
+                startPaymentTimer(600);
+            } catch (error) {
+                console.error("Error:", error);
+                showToast('লোন আবেদনে সমস্যা হয়েছে', true);
+            }
         });
 
-        function startTimer(seconds) {
+        function startPaymentTimer(seconds) {
             let time = seconds;
-            const timerElement = document.getElementById('timer');
             if (timerInterval) clearInterval(timerInterval);
             
             timerInterval = setInterval(() => {
-                timerElement.textContent = time;
+                const mins = Math.floor(time / 60);
+                const secs = time % 60;
+                document.getElementById('timer').textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+                
                 if (time <= 0) {
                     clearInterval(timerInterval);
-                    document.getElementById('paymentMessage').innerHTML = '⏰ সময় শেষ! আবার লোন আবেদন করুন।';
+                    document.getElementById('paymentMessage').innerHTML = '❌ সময় শেষ! আবার লোন আবেদন করুন।';
                 }
                 time--;
             }, 1000);
@@ -1290,77 +1348,75 @@
         });
 
         document.getElementById('sendMoneyBtn')?.addEventListener('click', () => {
-            window.open('bka://sendmoney', '_blank');
-            setTimeout(() => window.open('https://www.bkash.com', '_blank'), 500);
+            const bikashNumber = '01918964459';
+            window.open(`tel:*247#`, '_blank');
         });
-
-        window.closePaymentModal = () => {
-            document.getElementById('paymentModal').classList.remove('show');
-            if (timerInterval) clearInterval(timerInterval);
-        };
 
         document.getElementById('verifyBtn')?.addEventListener('click', async () => {
             const transactionId = document.getElementById('transactionId').value.trim();
             
             if (!transactionId) {
-                showToast('ট্রানজেকশন আইডি দিন');
+                showToast('ট্রানজেকশন আইডি দিন', true);
                 return;
             }
             
-            if (transactionId.length < 10) {
-                showToast('সঠিক ট্রানজেকশন আইডি দিন (१० ডিজিট)');
+            if (transactionId.length !== 10 || !/^\d+$/.test(transactionId)) {
+                showToast('সঠিক ১০ সংখ্যার আইডি দিন', true);
                 return;
             }
             
             document.getElementById('paymentModal').classList.remove('show');
             document.getElementById('checkingModal').classList.add('show');
+            if (timerInterval) clearInterval(timerInterval);
             
             let timeLeft = 40;
-            const checkingTimer = document.getElementById('checkingTimer');
             if (checkingInterval) clearInterval(checkingInterval);
             
             checkingInterval = setInterval(() => {
-                timeLeft--;
-                checkingTimer.textContent = timeLeft;
+                document.getElementById('checkingTimer').textContent = timeLeft;
                 if (timeLeft <= 0) {
                     clearInterval(checkingInterval);
                     document.getElementById('checkingModal').classList.remove('show');
                     finalizeLoan(transactionId);
                 }
+                timeLeft--;
             }, 1000);
         });
 
         async function finalizeLoan(transactionId) {
-            const loansRef = collection(db, 'loans');
-            const q = query(loansRef, where('userId', '==', currentUser.uid), where('status', '==', 'pending_payment'));
-            const querySnapshot = await getDocs(q);
-            
-            for (const docSnapshot of querySnapshot.docs) {
-                await updateDoc(docSnapshot.ref, {
-                    status: 'approved',
-                    transactionId: transactionId,
-                    approvedAt: serverTimestamp()
+            try {
+                const loansRef = collection(db, 'loans');
+                const q = query(loansRef, where('userId', '==', currentUser.uid), where('status', '==', 'pending_payment'));
+                const querySnapshot = await getDocs(q);
+                
+                for (const docSnapshot of querySnapshot.docs) {
+                    await updateDoc(docSnapshot.ref, {
+                        status: 'approved',
+                        transactionId: transactionId,
+                        approvedAt: serverTimestamp()
+                    });
+                }
+                
+                const userRef = doc(db, 'users', currentUser.uid);
+                await updateDoc(userRef, {
+                    address: document.getElementById('address').value,
+                    lastLoanDate: serverTimestamp()
                 });
+                
+                // সাকসেস মোডাল ডেটা সেট করুন
+                document.getElementById('successAmount').textContent = selectedLoan.amount.toLocaleString('bn-BD') + ' টাকা';
+                document.getElementById('successDuration').textContent = selectedLoan.duration + ' মাস';
+                document.getElementById('successInterest').textContent = selectedLoan.interest + '%';
+                document.getElementById('successEMI').textContent = selectedLoan.emi.toLocaleString('bn-BD') + ' টাকা';
+                document.getElementById('successTransactionId').textContent = transactionId;
+                
+                document.getElementById('successModal').classList.add('show');
+                
+                await loadLoansAndStats();
+            } catch (error) {
+                console.error("Error finalizing loan:", error);
+                showToast('লোন প্রসেসে সমস্যা হয়েছে', true);
             }
-            
-            const userRef = doc(db, 'users', currentUser.uid);
-            await updateDoc(userRef, {
-                totalLoan: (userData?.totalLoan || 0) + selectedLoan.amount,
-                activeLoan: (userData?.activeLoan || 0) + selectedLoan.amount,
-                address: document.getElementById('address').value
-            });
-            
-            const successHTML = `
-                <div class="detail-row"><strong>লোনের পরিমাণ:</strong> ${selectedLoan.amount.toLocaleString()} টাকা</div>
-                <div class="detail-row"><strong>প্রসেসিং ফি:</strong> ${selectedLoan.fee.toLocaleString()} টাকा</div>
-                <div class="detail-row"><strong>মাসিক কিস্তি:</strong> ${selectedLoan.emi.toLocaleString()} টাকা</div>
-                <div class="detail-row"><strong>মোট পরিশোধ্য:</strong> ${selectedLoan.totalPayable.toLocaleString()} টাকা</div>
-                <div class="detail-row"><strong>ট্রানজেকশন আইডি:</strong> ${transactionId}</div>
-            `;
-            document.getElementById('successDetails').innerHTML = successHTML;
-            document.getElementById('successModal').classList.add('show');
-            
-            await loadLoansAndStats();
         }
 
         document.getElementById('closeSuccessBtn')?.addEventListener('click', () => {
@@ -1377,7 +1433,7 @@
         const supportBtn = document.getElementById('supportBtn');
         const supportPopup = document.getElementById('supportPopup');
         const closeSupportBtn = document.getElementById('closeSupportBtn');
-        const supportWrapper = document.getElementById('supportWrapper');
+        const supportWrapper = document.querySelector('.support-wrapper');
 
         if (supportBtn) {
             supportBtn.addEventListener('click', (e) => {
@@ -1392,10 +1448,9 @@
             });
         }
 
-        // বাইরে ক্লিক করলে বন্ধ
         document.addEventListener('click', (event) => {
             if (supportWrapper && !supportWrapper.contains(event.target)) {
-                if (supportPopup) supportPopup.classList.remove('active');
+                supportPopup.classList.remove('active');
             }
         });
     </script>
