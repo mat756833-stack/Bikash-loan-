@@ -18,6 +18,10 @@
             background: #d32f2f;
             color: white;
             padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .header-content {
             max-width: 1200px;
@@ -26,6 +30,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            gap: 15px;
         }
         .logo-area {
             display: flex;
@@ -44,15 +49,36 @@
             font-weight: bold;
             color: #d32f2f;
         }
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
         .nav-menu a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .nav-menu a:hover, .nav-menu a.active {
+            background: rgba(255,255,255,0.2);
         }
         .user-info {
             display: flex;
             align-items: center;
             gap: 15px;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 30px;
+        }
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .user-number {
+            font-size: 11px;
+            opacity: 0.9;
         }
         .logout-btn {
             background: white;
@@ -61,6 +87,11 @@
             padding: 6px 15px;
             border-radius: 20px;
             cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .logout-btn:hover {
+            background: #ffebee;
         }
         .main-content {
             max-width: 1200px;
@@ -78,27 +109,178 @@
             color: #d32f2f;
             font-size: 22px;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .loan-item {
             background: #f8f9fa;
             border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 15px;
+            padding: 18px;
+            margin-bottom: 18px;
             border-left: 5px solid #d32f2f;
+            transition: all 0.3s ease;
+        }
+        .loan-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .loan-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        .loan-amount {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d32f2f;
         }
         .loan-status {
             display: inline-block;
-            padding: 4px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
         }
-        .status-approved { background: #4caf50; color: white; }
-        .status-pending { background: #ff9800; color: white; }
-        .status-rejected { background: #f44336; color: white; }
+        .status-approved {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+        .status-pending {
+            background: #fff3e0;
+            color: #e65100;
+            border: 1px solid #ffb74d;
+        }
+        .status-rejected {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+        .loan-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .detail-box {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 3px solid #d32f2f;
+        }
+        .detail-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .detail-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 30px;
+            color: #999;
+        }
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+        .empty-text {
+            font-size: 16px;
+            color: #666;
+        }
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f0f0f0;
+            border-top: 4px solid #d32f2f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        .filter-section {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #d32f2f;
+            background: white;
+            color: #d32f2f;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .filter-btn.active {
+            background: #d32f2f;
+            color: white;
+        }
+        .filter-btn:hover {
+            background: #d32f2f;
+            color: white;
+        }
         @media (max-width: 768px) {
-            .header-content { flex-direction: column; gap: 10px; text-align: center; }
-            .nav-menu { margin: 10px 0; }
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-menu {
+                justify-content: center;
+            }
+            .loan-item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .loan-details {
+                grid-template-columns: 1fr;
+            }
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -107,65 +289,234 @@
         <div class="header-content">
             <div class="logo-area">
                 <div class="logo-icon">বি</div>
-                <div style="font-size: 20px; font-weight: bold;">বিকাশ লোন</div>
+                <div style="font-size: 18px; font-weight: bold;">বিকাশ লোন</div>
             </div>
             <div class="nav-menu">
-                <a href="dashboard.html">হোম</a>
-                <a href="loan-history.html" style="font-weight: bold;">লোন হিস্টরি</a>
-                <a href="profile.html">প্রোফাইল</a>
+                <a href="dashboard.html">🏠 হোম</a>
+                <a href="loan-history.html" class="active">📜 লোন হিস্টরি</a>
+                <a href="profile.html">👤 প্রোফাইল</a>
             </div>
             <div class="user-info">
-                <span id="userName">লোডিং...</span>
-                <button class="logout-btn" onclick="logout()">লগআউট</button>
+                <div>
+                    <div class="user-name" id="userName">লোড হচ্ছে...</div>
+                    <div class="user-number" id="userNumber"></div>
+                </div>
+                <button class="logout-btn" id="logoutBtn">লগআউট</button>
             </div>
         </div>
     </div>
+
     <div class="main-content">
+        <!-- স্ট্যাটিস্টিক্স সেকশন -->
+        <div class="stats-section" id="statsSection">
+            <div class="stat-card">
+                <div class="stat-number" id="totalLoans">০</div>
+                <div class="stat-label">মোট লোন আবেদন</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="approvedLoans">০</div>
+                <div class="stat-label">অনুমোদিত লোন</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingLoans">০</div>
+                <div class="stat-label">বিচারাধীন লোন</div>
+            </div>
+        </div>
+
+        <!-- ফিল্টার সেকশন -->
         <div class="section-card">
-            <div class="section-title">📜 লোন হিস্টরি</div>
-            <div id="loanList">লোড হচ্ছে...</div>
+            <div class="filter-section">
+                <button class="filter-btn active" data-filter="all">সকল লোন</button>
+                <button class="filter-btn" data-filter="approved">✅ অনুমোদিত</button>
+                <button class="filter-btn" data-filter="pending">⏳ বিচারাধীন</button>
+                <button class="filter-btn" data-filter="rejected">❌ বাতিল</button>
+            </div>
+        </div>
+
+        <!-- লোন হিস্টরি সেকশন -->
+        <div class="section-card">
+            <div class="section-title">
+                <span>📋 লোন হিস্টরি</span>
+                <span id="loanCount" style="font-size: 14px; color: #999; margin-left: auto; font-weight: normal;"></span>
+            </div>
+            <div id="loanList">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+            </div>
         </div>
     </div>
+
     <script type="module">
         import { auth, db } from './firebase.js';
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
-        import { collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+        import { collection, query, where, getDocs, orderBy, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
         
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) { window.location.href = 'index.html'; return; }
-            document.getElementById('userName').textContent = user.email.split('@')[0];
-            await loadLoans(user.uid);
+        let allLoans = []; // সকল লোন স্টোর করার জন্য
+        let currentFilter = 'all'; // বর্তমান ফিল্টার
+
+        // লগআউট ফাংশন
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await signOut(auth);
+            window.location.href = 'index.html';
         });
-        
-        async function loadLoans(userId) {
-            const q = query(collection(db, 'loans'), where('userId', '==', userId), orderBy('timestamp', 'desc'));
-            const querySnapshot = await getDocs(q);
+
+        // ফিল্টার বাটন ইভেন্ট লিসেনার
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                displayLoans(allLoans);
+            });
+        });
+
+        // লোন ডিসপ্লে ফাংশন
+        function displayLoans(loans) {
             const loanList = document.getElementById('loanList');
-            if (querySnapshot.empty) {
-                loanList.innerHTML = '<p style="text-align:center;">কোনো লোনের ইতিহাস নেই</p>';
-                return;
+            
+            // ফিল্টার অনুযায়ী লোন ফিল্টার করা
+            let filteredLoans = loans;
+            if (currentFilter !== 'all') {
+                filteredLoans = loans.filter(loan => loan.status === currentFilter);
             }
-            let html = '';
-            querySnapshot.forEach(doc => {
-                const data = doc.data();
-                const date = data.timestamp?.toDate().toLocaleDateString('bn-BD') || 'তারিখ নেই';
-                html += `
-                    <div class="loan-item">
-                        <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-                            <div><strong>💰 ${data.amount?.toLocaleString()} টাকা</strong></div>
-                            <div><span class="loan-status status-${data.status === 'approved' ? 'approved' : 'pending'}">${data.status === 'approved' ? 'অনুমোদিত' : 'বিচারাধীন'}</span></div>
-                        </div>
-                        <div style="font-size: 14px; color: #666; margin-top: 10px;">
-                            📅 আবেদন: ${date}<br>
-                            📆 মেয়াদ: ${data.duration} মাস | কিস্তি: ${data.emi?.toLocaleString()} টাকা/মাস
+
+            // লোন কাউন্ট আপডেট
+            document.getElementById('loanCount').textContent = `(${filteredLoans.length})`;
+
+            // যদি কোনো লোন না থাকে
+            if (filteredLoans.length === 0) {
+                loanList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <div class="empty-text">
+                            ${currentFilter === 'all' 
+                                ? 'কোনো লোনের ইতিহাস নেই' 
+                                : `কোনো ${currentFilter === 'approved' ? 'অনুমোদিত' : currentFilter === 'pending' ? 'বিচারাধীন' : 'বাতিল'} লোন নেই`
+                            }
                         </div>
                     </div>
                 `;
-            });
-            loanList.innerHTML = html;
+                return;
+            }
+
+            // লোন ডিসপ্লে করা
+            loanList.innerHTML = filteredLoans.map(loan => {
+                const statusClass = `status-${loan.status}`;
+                const statusText = loan.status === 'approved' ? '✅ অনুমোদিত' : 
+                                   loan.status === 'pending' ? '⏳ বিচারাধীন' : '❌ বাতিল';
+                
+                const applicationDate = loan.timestamp ? new Date(loan.timestamp.toDate()).toLocaleDateString('bn-BD', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }) : 'তারিখ নেই';
+
+                const emiAmount = loan.emi ? loan.emi.toLocaleString('bn-BD') : '০';
+                const totalAmount = loan.amount ? loan.amount.toLocaleString('bn-BD') : '০';
+                const processingFee = loan.fee ? loan.fee.toLocaleString('bn-BD') : '০';
+
+                return `
+                    <div class="loan-item">
+                        <div class="loan-item-header">
+                            <div class="loan-amount">💰 ${totalAmount} টাকা</div>
+                            <span class="loan-status ${statusClass}">${statusText}</span>
+                        </div>
+                        <div class="loan-details">
+                            <div class="detail-box">
+                                <div class="detail-label">📅 আবেদনের তারিখ</div>
+                                <div class="detail-value">${applicationDate}</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">⏱️ কিস্তির সময়কাল</div>
+                                <div class="detail-value">${loan.duration || '০'} মাস</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">💵 মাসিক কিস্তি</div>
+                                <div class="detail-value">${emiAmount} টাকা</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">🔧 প্রসেসিং ফি</div>
+                                <div class="detail-value">${processingFee} টাকা</div>
+                            </div>
+                            ${loan.interest ? `
+                            <div class="detail-box">
+                                <div class="detail-label">📊 সুদের হার</div>
+                                <div class="detail-value">${loan.interest}%</div>
+                            </div>
+                            ` : ''}
+                            ${loan.status === 'approved' && loan.approvalDate ? `
+                            <div class="detail-box">
+                                <div class="detail-label">✅ অনুমোদনের তারিখ</div>
+                                <div class="detail-value">${new Date(loan.approvalDate.toDate()).toLocaleDateString('bn-BD')}</div>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
-        
-        window.logout = async () => { await signOut(auth); window.location.href = 'index.html'; };
+
+        // স্ট্যাটিস্টিক্স আপডেট ফাংশন
+        function updateStats(loans) {
+            const totalLoans = loans.length;
+            const approvedLoans = loans.filter(l => l.status === 'approved').length;
+            const pendingLoans = loans.filter(l => l.status === 'pending').length;
+
+            document.getElementById('totalLoans').textContent = totalLoans;
+            document.getElementById('approvedLoans').textContent = approvedLoans;
+            document.getElementById('pendingLoans').textContent = pendingLoans;
+        }
+
+        // লোন লোড ফাংশন
+        async function loadLoans(userId) {
+            try {
+                const q = query(
+                    collection(db, 'loans'),
+                    where('userId', '==', userId),
+                    orderBy('timestamp', 'desc')
+                );
+                
+                const querySnapshot = await getDocs(q);
+                allLoans = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+
+                updateStats(allLoans);
+                displayLoans(allLoans);
+            } catch (error) {
+                console.error('লোন লোড করতে ত্রুটি:', error);
+                const loanList = document.getElementById('loanList');
+                loanList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">❌</div>
+                        <div class="empty-text">লোন লোড করতে সমস্যা হয়েছে। অনুগ্রহ করে পেজটি রিফ্রেশ করুন।</div>
+                    </div>
+                `;
+            }
+        }
+
+        // ইউজার অথেন্টিকেশন চেক
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // ইউজার নাম সেট করা
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                document.getElementById('userName').textContent = userData.name || user.email.split('@')[0];
+                document.getElementById('userNumber').textContent = userData.bikashNumber || '';
+            } else {
+                document.getElementById('userName').textContent = user.email.split('@')[0];
+            }
+
+            // লোন লোড করা
+            await loadLoans(user.uid);
+        });
     </script>
 </body>
 </html>
