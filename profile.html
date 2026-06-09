@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>প্রোফাইল - বিকাশ লোন</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', 'SutonnyMJ', sans-serif; background: #f5f5f5; }
+        .header { background: #d32f2f; color: white; padding: 15px 20px; }
+        .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { width: 40px; height: 40px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; color: #d32f2f; }
+        .nav-menu a { color: white; text-decoration: none; margin: 0 15px; }
+        .user-info { display: flex; align-items: center; gap: 15px; }
+        .logout-btn { background: white; color: #d32f2f; border: none; padding: 6px 15px; border-radius: 20px; cursor: pointer; }
+        .main-content { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+        .profile-card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); text-align: center; }
+        .avatar { width: 100px; height: 100px; background: #d32f2f; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 48px; font-weight: bold; color: white; }
+        .info-row { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #e0e0e0; }
+        .edit-btn { background: #d32f2f; color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; margin-top: 20px; }
+        @media (max-width: 768px) { .info-row { flex-direction: column; gap: 5px; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-area">
+                <div class="logo-icon">বি</div>
+                <div style="font-size: 20px; font-weight: bold;">বিকাশ লোন</div>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html">হোম</a>
+                <a href="loan-history.html">লোন হিস্টরি</a>
+                <a href="profile.html" style="font-weight: bold;">প্রোফাইল</a>
+            </div>
+            <div class="user-info">
+                <span id="userName">লোডিং...</span>
+                <button class="logout-btn" onclick="logout()">লগআউট</button>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="profile-card">
+            <div class="avatar" id="avatar">বি</div>
+            <div class="info-row"><strong>পূর্ণ নাম</strong><span id="fullName">-</span></div>
+            <div class="info-row"><strong>বিকাশ নম্বর</strong><span id="bikashNumber">-</span></div>
+            <div class="info-row"><strong>ঠিকানা</strong><span id="address">-</span></div>
+            <div class="info-row"><strong>পেশা</strong><span id="occupation">-</span></div>
+            <div class="info-row"><strong>সদস্য হওয়ার তারিখ</strong><span id="memberSince">-</span></div>
+            <button class="edit-btn" onclick="editProfile()">✏️ প্রোফাইল এডিট করুন</button>
+        </div>
+    </div>
+    <script type="module">
+        import { auth, db } from './firebase.js';
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+        
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) { window.location.href = 'index.html'; return; }
+            document.getElementById('userName').textContent = user.email.split('@')[0];
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+            if (userDoc.exists()) {
+                const data = userDoc.data();
+                document.getElementById('fullName').textContent = data.name || '-';
+                document.getElementById('bikashNumber').textContent = data.bikashNumber || '-';
+                document.getElementById('address').textContent = data.address || '-';
+                document.getElementById('occupation').textContent = data.occupation || '-';
+                document.getElementById('memberSince').textContent = data.createdAt?.toDate().toLocaleDateString('bn-BD') || '-';
+                document.getElementById('avatar').textContent = (data.name?.charAt(0) || 'বি');
+            }
+        });
+        
+        window.editProfile = () => { alert('প্রোফাইল এডিট ফিচার শীঘ্রই আসছে!'); };
+        window.logout = async () => { await signOut(auth); window.location.href = 'index.html'; };
+    </script>
+</body>
+</html>

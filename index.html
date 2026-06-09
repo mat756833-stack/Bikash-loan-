@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>বিকাশ লোন - লগইন/সাইনআপ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SutonnyMJ', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* কার্ড স্টাইল */
+        .card {
+            background: rgba(255,255,255,0.98);
+            border-radius: 40px;
+            padding: 40px 35px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 38px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 10px 20px rgba(211,47,47,0.3);
+        }
+
+        h1 {
+            color: #d32f2f;
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* ফর্ম গ্রুপ */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px 15px;
+            border: 2px solid #e8e8e8;
+            border-radius: 16px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #d32f2f;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(211,47,47,0.1);
+        }
+
+        .readonly-input {
+            background: #f0f0f0 !important;
+            cursor: default;
+        }
+
+        /* বাটন */
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(211,47,47,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #d32f2f;
+            border: 2px solid #d32f2f;
+        }
+
+        .btn-secondary:hover {
+            background: #d32f2f;
+            color: white;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ddd, transparent);
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 20px;
+            position: relative;
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* লোডিং অ্যানিমেশন */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-top: 5px solid #d32f2f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* সাকসেস পপআপ */
+        .success-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 60px;
+            font-size: 20px;
+            font-weight: bold;
+            z-index: 2001;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: popupFade 2s ease forwards;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        @keyframes popupFade {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); visibility: hidden; }
+        }
+
+        .error-popup {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+        }
+
+        /* অ্যালার্ট */
+        .alert-message {
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+            text-align: center;
+        }
+
+        .alert-error {
+            background: #ffebee;
+            color: #c62828;
+            display: block;
+            border-left: 4px solid #c62828;
+        }
+
+        /* ফিচার */
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 15px;
+        }
+
+        .feature-item {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .feature-text {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: rgba(255,255,255,0.8);
+            font-size: 12px;
+        }
+
+        @media (max-width: 550px) {
+            .card {
+                padding: 30px 25px;
+            }
+            .logo-icon {
+                width: 65px;
+                height: 65px;
+                font-size: 30px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .success-popup {
+                white-space: normal;
+                text-align: center;
+                padding: 15px 25px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo-icon">বি</div>
+            <h1>বিকাশ লোন</h1>
+            <div class="subtitle">বিশ্বাস ও নিরাপত্তায়</div>
+
+            <!-- লগইন ফর্ম -->
+            <div id="loginForm">
+                <div class="form-group">
+                    <label>📱 বিকাশ নম্বর</label>
+                    <input type="tel" id="loginPhone" placeholder="01XXXXXXXXX">
+                </div>
+                <div class="form-group">
+                    <label>🔒 পিন (৬ ডিজিট)</label>
+                    <input type="password" id="loginPin" placeholder="৬ ডিজিটের পিন" maxlength="6">
+                </div>
+                <button class="btn btn-primary" id="loginBtn">🔓 লগইন করুন</button>
+                <div class="divider"><span>অথবা</span></div>
+                <button class="btn btn-secondary" id="showSignupBtn">✨ নতুন অ্যাকাউন্ট তৈরি করুন</button>
+            </div>
+
+            <!-- সাইনআপ ফর্ম -->
+            <div id="signupForm" style="display: none;">
+                <div class="form-group">
+                    <label>👤 আপনার পুরো নাম</label>
+                    <input type="text" id="fullName" placeholder="জন Doe">
+                </div>
+                <div class="form-group">
+                    <label>📱 বিকাশ নম্বর</label>
+                    <input type="tel" id="signupPhone" placeholder="01XXXXXXXXX">
+                </div>
+                <div class="form-group">
+                    <label>🔒 পিন (৬ ডিজিট)</label>
+                    <input type="password" id="signupPin" placeholder="৬ ডিজিটের পিন" maxlength="6">
+                </div>
+                <div class="form-group">
+                    <label>🆔 এনআইডি / স্মার্ট কার্ড নম্বর</label>
+                    <input type="text" id="nidNumber" placeholder="আপনার এনআইডি নম্বর">
+                </div>
+                
+                <!-- জেলা সিলেক্ট -->
+                <div class="form-group">
+                    <label>🏙️ জেলা নির্বাচন করুন</label>
+                    <select id="districtSelect">
+                        <option value="">জেলা নির্বাচন করুন</option>
+                    </select>
+                </div>
+
+                <!-- জেলা ইনপুট (অটো ফিল) -->
+                <div class="form-group">
+                    <label>🏙️ আপনার জেলা</label>
+                    <input type="text" id="districtInput" class="readonly-input" placeholder="উপর থেকে জেলা নির্বাচন করুন" readonly>
+                </div>
+
+                <button class="btn btn-primary" id="signupBtn">✅ সাইনআপ করুন</button>
+                <button class="btn btn-secondary" id="showLoginBtn">↩ ইতিমধ্যে অ্যাকাউন্ট আছে? লগইন করুন</button>
+            </div>
+
+            <div id="message" class="alert-message"></div>
+        </div>
+
+        <div class="features">
+            <div class="feature-item"><div class="feature-icon">🚀</div><div class="feature-text">তাত্ক্ষণিক লোন</div></div>
+            <div class="feature-item"><div class="feature-icon">💳</div><div class="feature-text">সুদমুক্ত কিস্তি</div></div>
+            <div class="feature-item"><div class="feature-icon">🔒</div><div class="feature-text">১০০% নিরাপদ</div></div>
+        </div>
+        <div class="footer"><p>© 2024 বিকাশ লোন - একটি বিশ্বস্ত লোন সার্ভিস</p></div>
+    </div>
+
+    <!-- লোডিং ওভারলে -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-text">প্রক্রিয়াকরণ হচ্ছে...</div>
+    </div>
+
+    <script type="module">
+        import { auth, db } from './firebase.js';
+        import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+        import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+
+        // বাংলাদেশের ৬৪ জেলার তালিকা
+        const districts = [
+            "ঢাকা", "ফরিদপুর", "গাজীপুর", "গোপালগঞ্জ", "কিশোরগঞ্জ", "মাদারীপুর", "মানিকগঞ্জ", "মুন্সীগঞ্জ",
+            "নারায়ণগঞ্জ", "নরসিংদী", "রাজবাড়ী", "শরীয়তপুর", "টাঙ্গাইল", "বরগুনা", "বরিশাল", "ভোলা",
+            "ঝালকাঠি", "পটুয়াখালী", "পিরোজপুর", "বান্দরবান", "ব্রাহ্মণবাড়িয়া", "চাঁদপুর", "চট্টগ্রাম",
+            "কুমিল্লা", "কক্সবাজার", "ফেনী", "খাগড়াছড়ি", "লক্ষ্মীপুর", "নোয়াখালী", "রাঙ্গামাটি",
+            "দিনাজপুর", "গাইবান্ধা", "কুড়িগ্রাম", "লালমনিরহাট", "নীলফামারী", "পঞ্চগড়", "রংপুর",
+            "ঠাকুরগাঁও", "হবিগঞ্জ", "মৌলভীবাজার", "সুনামগঞ্জ", "সিলেট", "জামালপুর", "ময়মনসিংহ",
+            "নেত্রকোণা", "শেরপুর", "বাগেরহাট", "চুয়াডাঙ্গা", "যশোর", "ঝিনাইদহ", "খুলনা", "কুষ্টিয়া",
+            "মাগুরা", "মেহেরপুর", "নড়াইল", "সাতক্ষীরা", "বগুড়া", "জয়পুরহাট", "নওগাঁ", "নাটোর",
+            "চাঁপাইনবাবগঞ্জ", "পাবনা", "রাজশাহী", "সিরাজগঞ্জ"
+        ];
+
+        const uniqueDistricts = [...new Set(districts)].sort();
+
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        function showSuccessPopup(message) {
+            const popup = document.createElement('div');
+            popup.className = 'success-popup';
+            popup.innerHTML = `✅ ${message}`;
+            document.body.appendChild(popup);
+            setTimeout(() => popup.remove(), 2000);
+        }
+
+        function showErrorPopup(message) {
+            const popup = document.createElement('div');
+            popup.className = 'success-popup error-popup';
+            popup.innerHTML = `❌ ${message}`;
+            document.body.appendChild(popup);
+            setTimeout(() => popup.remove(), 2500);
+        }
+
+        function showError(msg) {
+            const msgDiv = document.getElementById('message');
+            msgDiv.textContent = msg;
+            msgDiv.className = 'alert-message alert-error';
+            setTimeout(() => {
+                msgDiv.className = 'alert-message';
+            }, 4000);
+        }
+
+        function loadDistricts() {
+            const districtSelect = document.getElementById('districtSelect');
+            districtSelect.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
+            uniqueDistricts.forEach(district => {
+                const option = document.createElement('option');
+                option.value = district;
+                option.textContent = district;
+                districtSelect.appendChild(option);
+            });
+        }
+
+        // জেলা সিলেক্ট করলে ইনপুটে বসানো
+        document.getElementById('districtSelect')?.addEventListener('change', function() {
+            const input = document.getElementById('districtInput');
+            input.value = this.value;
+        });
+
+        function validatePhoneNumber(num) {
+            const clean = num.replace(/\D/g, '');
+            return clean.length === 11 && clean.startsWith('01');
+        }
+
+        // ============= সাইনআপ ফাংশন =============
+        document.getElementById('signupBtn')?.addEventListener('click', async function() {
+            const fullName = document.getElementById('fullName').value.trim();
+            let phone = document.getElementById('signupPhone').value.trim();
+            const pin = document.getElementById('signupPin').value;
+            const nidNumber = document.getElementById('nidNumber').value.trim();
+            const district = document.getElementById('districtInput').value.trim();
+
+            if (!fullName) { showError('আপনার নাম দিন'); return; }
+            if (!phone) { showError('বিকাশ নম্বর দিন'); return; }
+            if (!pin) { showError('পিন দিন'); return; }
+            if (!nidNumber) { showError('এনআইডি নম্বর দিন'); return; }
+            if (!district) { showError('জেলা নির্বাচন করুন'); return; }
+
+            phone = phone.replace(/\D/g, '');
+            if (!validatePhoneNumber(phone)) {
+                showError('সঠিক বিকাশ নম্বর দিন (01XXXXXXXXX)');
+                return;
+            }
+
+            if (pin.length !== 6) {
+                showError('পিন অবশ্যই ৬ ডিজিটের হতে হবে');
+                return;
+            }
+
+            if (nidNumber.length < 10) {
+                showError('সঠিক এনআইডি নম্বর দিন');
+                return;
+            }
+
+            const email = `${phone}@bikashloan.com`;
+
+            showLoading();
+
+            try {
+                // Firebase এ ইউজার তৈরি
+                const userCredential = await createUserWithEmailAndPassword(auth, email, pin);
+                const userId = userCredential.user.uid;
+                
+                // প্রোফাইল আপডেট
+                await updateProfile(userCredential.user, { displayName: fullName });
+
+                // Firestore এ ইউজার ডাটা সেভ (UID ডকুমেন্ট আইডি হিসেবে)
+                await setDoc(doc(db, 'users', userId), {
+                    uid: userId,
+                    name: fullName,
+                    bikashNumber: phone,
+                    pin: pin,
+                    nidNumber: nidNumber,
+                    district: district,
+                    email: email,
+                    createdAt: serverTimestamp(),
+                    totalLoan: 0,
+                    activeLoan: 0,
+                    totalPaid: 0,
+                    profileCompleted: true
+                });
+
+                hideLoading();
+                showSuccessPopup('সাইনআপ সফল! ড্যাশবোর্ডে যাচ্ছে...');
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 2000);
+
+            } catch (error) {
+                hideLoading();
+                if (error.code === 'auth/email-already-in-use') {
+                    showErrorPopup('এই বিকাশ নম্বর ইতিমধ্যে রেজিস্ট্রেশন করা আছে');
+                } else if (error.code === 'auth/weak-password') {
+                    showErrorPopup('পিন খুব সহজ। আরও শক্তিশালী পিন দিন');
+                } else {
+                    showErrorPopup(error.message);
+                }
+            }
+        });
+
+        // ============= লগইন ফাংশন =============
+        document.getElementById('loginBtn')?.addEventListener('click', async function() {
+            let phone = document.getElementById('loginPhone').value.trim();
+            const pin = document.getElementById('loginPin').value;
+
+            if (!phone || !pin) {
+                showError('বিকাশ নম্বর এবং পিন দিন');
+                return;
+            }
+
+            phone = phone.replace(/\D/g, '');
+            if (!validatePhoneNumber(phone)) {
+                showError('সঠিক বিকাশ নম্বর দিন (01XXXXXXXXX)');
+                return;
+            }
+
+            if (pin.length !== 6) {
+                showError('পিন অবশ্যই ৬ ডিজিটের হতে হবে');
+                return;
+            }
+
+            const email = `${phone}@bikashloan.com`;
+
+            showLoading();
+
+            try {
+                await signInWithEmailAndPassword(auth, email, pin);
+                hideLoading();
+                showSuccessPopup('লগইন সফল! ড্যাশবোর্ডে যাচ্ছে...');
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 2000);
+            } catch (error) {
+                hideLoading();
+                if (error.code === 'auth/user-not-found') {
+                    showErrorPopup('এই নম্বরে কোনো অ্যাকাউন্ট নেই। সাইনআপ করুন');
+                } else if (error.code === 'auth/wrong-password') {
+                    showErrorPopup('পিন ভুল। আবার চেষ্টা করুন');
+                } else {
+                    showErrorPopup('বিকাশ নম্বর বা পিন ভুল');
+                }
+            }
+        });
+
+        // ============= ফর্ম টগল =============
+        document.getElementById('showSignupBtn')?.addEventListener('click', () => {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
+            loadDistricts();
+            document.getElementById('message').className = 'alert-message';
+        });
+
+        document.getElementById('showLoginBtn')?.addEventListener('click', () => {
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('message').className = 'alert-message';
+        });
+
+        // পেজ লোড হলে জেলা লোড
+        loadDistricts();
+    </script>
+</body>
+</html>
