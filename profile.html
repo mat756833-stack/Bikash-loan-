@@ -18,7 +18,7 @@
         .profile-card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); text-align: center; }
         .avatar { width: 100px; height: 100px; background: #d32f2f; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 48px; font-weight: bold; color: white; }
         .info-row { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #e0e0e0; }
-        .edit-btn { background: #d32f2f; color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; margin-top: 20px; }
+        .service-message { background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; padding: 20px; margin-top: 20px; text-align: center; color: #856404; font-size: 16px; line-height: 1.6; }
         @media (max-width: 768px) { .info-row { flex-direction: column; gap: 5px; } }
     </style>
 </head>
@@ -48,7 +48,10 @@
             <div class="info-row"><strong>ঠিকানা</strong><span id="address">-</span></div>
             <div class="info-row"><strong>পেশা</strong><span id="occupation">-</span></div>
             <div class="info-row"><strong>সদস্য হওয়ার তারিখ</strong><span id="memberSince">-</span></div>
-            <button class="edit-btn" onclick="editProfile()">✏️ প্রোফাইল এডিট করুন</button>
+            <div class="service-message">
+                <strong>🎯 লোন সেবা আপনার মুঠোফোনে</strong><br>
+                আমরা আপনাকে সেরা লোন সেবা প্রদান করতে প্রতিশ্রুতিবদ্ধ। আপনার প্রয়োজনে যেকোনো সময় আমাদের সাথে যোগাযোগ করুন।
+            </div>
         </div>
     </div>
     <script type="module">
@@ -71,7 +74,6 @@
             }
         });
         
-        window.editProfile = () => { alert('প্রোফাইল এডিট ফিচার শীঘ্রই আসছে!'); };
         window.logout = async () => { await signOut(auth); window.location.href = 'index.html'; };
     </script>
 </body>
